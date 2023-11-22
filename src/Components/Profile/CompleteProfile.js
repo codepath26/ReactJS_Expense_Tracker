@@ -1,9 +1,11 @@
 import axios from 'axios';
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 function CompleteProfile() {
   const [fullName , setFullName] = useState('');
   const [photo , setPhoto] = useState('');
+  const navigate = useNavigate();
   const updateProfile = (e)=>{
     e.preventDefault();
   
@@ -21,6 +23,7 @@ function CompleteProfile() {
           data
           );
           console.log(response);
+          navigate('/main');
         }
       }catch(err){
         console.log(err);

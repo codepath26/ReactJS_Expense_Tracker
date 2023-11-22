@@ -9,6 +9,7 @@ function LoginRight() {
   const [msg , setMsg] = useState('');
   const navigate = useNavigate();
 
+
   useEffect(() => {
     const animation = () => {
       const signUpForm = document.getElementById("signup-form");
@@ -22,12 +23,15 @@ function LoginRight() {
   });
   const onSubmitHandler = async(e) => {
     e.preventDefault();
+    // console.log('submit handler is called')
     const user = {
       email: email,
       password: password,
     };
       try{
-        await sendRequest(user);
+        console.log("loging handler")
+        const data = await sendRequest(user);
+         console.log(data)
         setMsg("Login...");
         setEmail('');
         setPassword('');
