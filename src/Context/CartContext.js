@@ -65,8 +65,8 @@ const reducer = (state, action) => {
 
 const CartProvider = ({ children }) => {
   const [cartDetails, dispatch] = useReducer(reducer, initialState);
-  // const { token } = useAuthContext();
-  
+  const { token } = useAuthContext();
+   console.log(token)
   
   const addProduct = async (product) => {
     const email = localStorage.getItem('email');
