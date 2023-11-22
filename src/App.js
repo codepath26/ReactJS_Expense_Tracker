@@ -4,6 +4,7 @@ import Signup from './Components/User_Credentials/Signup/Signup';
 import Login from './Components/User_Credentials/Login/Login';
 import Layout from './Components/Layout/Layout';
 import MainPage from './Components/Main/MainPage';
+import CompleteProfile from './Components/Profile/CompleteProfile';
 function App() {
   return (
     <Router>
@@ -11,6 +12,7 @@ function App() {
           <Route path='/signup' element={<Signup/>}/>
           <Route path='/login' element={<Login/>}/>
           <Route path='/main' element={<Layout><MainPage/></Layout>}/> 
+          <Route path='/profile' element={<Layout><CompleteProfile/></Layout>}/> 
           <Route path='*' element={<Navigate to='/signup'/>}/>
       </Routes>
     </Router>
