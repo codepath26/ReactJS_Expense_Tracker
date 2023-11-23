@@ -1,0 +1,30 @@
+.displaybox{
+  color: white;
+}
+.product_details{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding-top: 10px;
+}
+.product_details li{
+  list-style: none;
+  width: 50%;
+  margin: 6px auto;
+  padding:0 10px;
+  font-size: 1rem;
+  background-color: rgb(11, 73, 97);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.product_details li button{
+  float: right;
+  border-radius: 5px;
+  margin: 5px;
+  border: 1px solid #8a2be2;
+  background-color: #8a2be2;
+  color: white;
+  cursor: pointer;
+}
