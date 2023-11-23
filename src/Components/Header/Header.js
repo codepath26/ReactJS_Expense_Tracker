@@ -1,15 +1,16 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function Header() {
   const [photo, setPhoto] = useState("");
   const [displayName, setDisplayName] = useState("");
+  const navigate = useNavigate();
   useEffect(() => {
     const getdata = async () => {
       try {
         const idToken = localStorage.getItem("token");
-        console.log(idToken);
+        // console.log(idToken);
         const response = await axios.post(
           `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${process.env.REACT_APP_FIREBASE_API_KEY}`,
           {
@@ -25,6 +26,10 @@ function Header() {
     };
     getdata();
   });
+  const onLogout = ()=>{
+     localStorage.removeItem('token');
+     navigate('/login')
+  }
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
@@ -91,6 +96,7 @@ function Header() {
               </NavLink>
             </li>
           </ul>
+          <button onClick={onLogout} className="btn btn-sm mx-3 btn-primary">Logout</button> 
           <div className="text-center mx-3">
               <img src={photo} alt="P" width="50px" className="border rounded-circle d-block" />
               <span>{displayName}</span>
