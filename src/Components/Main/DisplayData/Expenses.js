@@ -1,12 +1,20 @@
+import { useEffect } from "react";
 import { useExpense } from "../../../Context/ExpensesContext";
 import "./Expenses.css";
 
 const Expenses = () => {
-  const { expenses, removeExpense } = useExpense();
+  const { expenses, removeExpense,loadExpenses } = useExpense();
+  // console.log("from context" , expenses);
+  useEffect(()=>{
+  loadExpenses();
+ },[loadExpenses]);
+
+
+
   const deleteProductHandler = (index) => {
     removeExpense(index);
   };
-  console.log("ecpeses", expenses);
+  // console.log("ecpeses", expenses);
 
   return (
     <div className="displaybox">
