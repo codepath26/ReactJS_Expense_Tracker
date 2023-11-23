@@ -23,7 +23,6 @@ function Header() {
         console.log(err);
       }
     };
-
     getdata();
   });
   return (
@@ -92,21 +91,10 @@ function Header() {
               </NavLink>
             </li>
           </ul>
-          <form className="d-flex" role="search">
-            <div className="border border-rounded-circle">
-              <img src={photo} alt="P" width="100px" />{console.log(photo)}
+          <div className="text-center mx-3">
+              <img src={photo} alt="P" width="50px" className="border rounded-circle d-block" />
+              <span>{displayName}</span>
             </div>
-            <span>{displayName}</span>
-            <input
-              className="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button className="btn btn-outline-success" type="submit">
-              Search
-            </button>
-          </form>
         </div>
       </div>
     </nav>
