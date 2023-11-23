@@ -1,63 +1,21 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-
+import { useState } from 'react';
+import InputBox from './ExpenseForm/InputBox';
+import Alert from './alert'
+import './Mainpage.css'
+import Expenses from './DisplayData/Expenses';
 function MainPage() {
-  const [visibleProfile , setVisibleProfilel]= useState(true);
-  const [visibleEmail , setVisibleEmail]= useState(true);
-  const navigate = useNavigate();
-  useEffect(()=>{
-    const name = localStorage.getItem('name');
-    console.log(typeof name);
-    if(name !== '' && name !== "undefined"){
-      setVisibleProfilel(false);
-    }
-  },[])
-  const completeProfile = () => {
-    navigate("/profile");
-  };
-  async function verifyEmail() {
-    try {
-      const token = localStorage.getItem("token");
-      if (token) {
-        const response = await axios.post(
-          `https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${process.env.REACT_APP_FIREBASE_API_KEY}`,
-          {
-            idToken: token,
-            requestType: "VERIFY_EMAIL",
-          }
-        );
-        console.log(response.data.status)
-        if(response.data.status === "200"){
-          setVisibleEmail(false);
-        }        
+  const [complete , setComplete] = useState(false);
 
-      }
-    } catch (err) {
-      console.log(err);
-    }
+  const onCompleteProfile = ()=>{
+    setComplete(true);
   }
+ 
   return (
-    <>
-      {visibleProfile && <div
-        className="alert alert-danger d-flex justify-content-between aling-items-center"
-        role="alert"
-      >
-        <span>Your Profile is not complete yet</span>
-        <button onClick={completeProfile} className="btn btn-danger">
-          Complete Now!
-        </button>
-      </div>}
-      {visibleEmail && <div
-        className="alert alert-danger d-flex justify-content-between aling-items-center"
-        role="alert"
-      >
-        <span>Verify Your Email</span>
-        <button onClick={verifyEmail} className="btn btn-warning">
-          Verify Now!
-        </button>
-      </div>}
-    </>
+    <div className='main'>
+    <Alert onCompleteProfile={onCompleteProfile}/>    
+    {complete && <InputBox/>}
+    {complete && <Expenses/>}
+    </div>
   );
 }
 

@@ -33,7 +33,7 @@ function Header() {
   }
 
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+    <nav className="navbar navbar-expand-lg bg-body-tertiary position-relative">
       <div className="container-fluid">
         <NavLink className="navbar-brand" href="#">
           Navbar

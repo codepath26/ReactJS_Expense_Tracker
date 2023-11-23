@@ -1,14 +1,15 @@
-import React from 'react';
+import React from "react";
 
-import AuthContextProvider from './Context/AuthContext';
-import   RouterProvider  from './Router/RouterProvider';
+import AuthContextProvider from "./Context/AuthContext";
+import RouterProvider from "./Router/RouterProvider";
+import ProductsProvider from "./Context/ExpensesContext";
 
 function App() {
-    
-  
   return (
     <AuthContextProvider>
-      <RouterProvider/>
+      <ProductsProvider>
+        <RouterProvider />
+      </ProductsProvider>
     </AuthContextProvider>
   );
 }
