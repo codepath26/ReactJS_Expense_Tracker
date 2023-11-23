@@ -1,14 +1,20 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function MainPage() {
   const [visibleProfile , setVisibleProfilel]= useState(true);
   const [visibleEmail , setVisibleEmail]= useState(true);
   const navigate = useNavigate();
+  useEffect(()=>{
+    const name = localStorage.getItem('name');
+    console.log(typeof name);
+    if(name !== '' && name !== "undefined"){
+      setVisibleProfilel(false);
+    }
+  },[])
   const completeProfile = () => {
     navigate("/profile");
-    setVisibleProfilel(false);
   };
   async function verifyEmail() {
     try {
@@ -21,8 +27,10 @@ function MainPage() {
             requestType: "VERIFY_EMAIL",
           }
         );
-        console.log(response);
-        setVisibleEmail(false);
+        console.log(response.data.status)
+        if(response.data.status === "200"){
+          setVisibleEmail(false);
+        }        
 
       }
     } catch (err) {

@@ -2,13 +2,23 @@ import React from "react";
 import { useEffect, useState } from "react";
 import './LoginRight.css';
 import sendRequest from "./LoginHandler";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuthContext } from "../../../Context/AuthContext";
+
+
+
 function LoginRight() {
+
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [msg , setMsg] = useState('');
   const navigate = useNavigate();
+  const {  logginHandler  , onUserLogin} = useAuthContext();
 
+ const customStyle = {
+  '--bs-link-hover-color-rgb':'25, 135, 84',
+};
 
   useEffect(() => {
     const animation = () => {
@@ -31,7 +41,8 @@ function LoginRight() {
       try{
         console.log("loging handler")
         const data = await sendRequest(user);
-         console.log(data)
+         logginHandler(data.idToken)
+         onUserLogin();
         setMsg("Login...");
         setEmail('');
         setPassword('');
@@ -74,6 +85,7 @@ function LoginRight() {
               Login
             </button>
           </div>
+          <Link to="/resetPassword" className="text-center  d-block mt-5 icon-link icon-link-hover" style={customStyle}>Change Password</Link> 
         </form>
       </div>
     </>

@@ -1,30 +1,33 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import axios from "axios";
 import  { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuthContext } from '../../Context/AuthContext';
+// import { useAuthContext } from '../../Context/AuthContext';
+import './Forgotpass.css'
 function ForgotPassModal() {
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
-  const {token,logginHandler} = useAuthContext();
+  // const {logginHandler} = useAuthContext();
+  useEffect(()=>{
+    const reset = document.getElementById('reset');
+    reset.classList.add('reset');
+  })
 
   const onForgotPass = async (e) => {
     e.preventDefault();
+    let email = localStorage.getItem('email');
+    console.log(email)
     console.log("forgot password is called")
-    console.log(token);
-    const user = {
-      idToken: token,
-      password: password,
-      returnSecureToken : true,
+    const data = {
+      requestType: "PASSWORD_RESET",
+      email: email,
     };
     try {
       const response = await axios.post(
-        `https://identitytoolkit.googleapis.com/v1/accounts:update?key=${process.env.REACT_APP_FIREBASE_API_KEY}`,
-        user
-      );
-      console.log("Forgotpass",response.data.refreshToken);
-      logginHandler(response.data.refreshToken);
+        `https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${process.env.REACT_APP_FIREBASE_API_KEY}`,data);
+      console.log("Forgotpass",response);
+      // logginHandler(response.data.refreshToken);
       navigate('/login');
     } catch (err) {
       console.log(err);
@@ -33,17 +36,17 @@ function ForgotPassModal() {
   return (
     <>
       <div className="w-100 vh-100  d-flex justify-content-center align-items-center bg-dark bg-opacity-50 z-2">
-        <div className="w-50">
+        <div className="w-50 h-50 border  d-flex  jusity-content-between" id='reset'>
           <form
             onSubmit={onForgotPass}
-            className="border border-success w-50 m-auto p-3 rounded z-3 bg-light position-relative"
+            className=" w-50  bg-white z-3 p-1 position-relative d-flex flex-column"
           >
-            <div className="text-center">
+            <div className="text-center  my-2">
               <h1>Forgot Password</h1>
             </div>
-            <div className="d-flex flex-column">
-              <label className="fs-3 fw-bold mt-4" htmlFor="password">
-                New-Password
+            <div className="d-flex flex-column  mb-2">
+              <label className="fs-3  mt-4" htmlFor="password">
+                New Password
               </label>
               <input
                 type="password"
@@ -53,12 +56,13 @@ function ForgotPassModal() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <div className="text-center">
-              <button className="btn btn-primary mt-4 w-50 border rounded-pill p-3">
+            <div className="text-center  mb-2">
+              <button className="btn btn-primary mt-4 w-50 border  p-3">
                 Submit
               </button>
             </div>
           </form>
+          <div className='z-3 sideImage w-50'></div>
         </div>
       </div>
     </>

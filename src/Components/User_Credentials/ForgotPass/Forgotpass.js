@@ -1,6 +1,6 @@
 import React from 'react'
 import { createPortal } from 'react-dom'
-import ForgotpassModal from '../Overlays/ForgotPassModal'
+import ForgotpassModal from '../../Overlays/ForgotPassModal'
 
 function ForgotPass(props) {
 

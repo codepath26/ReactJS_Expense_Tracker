@@ -19,6 +19,7 @@ function Header() {
         );
         const user = response.data.users[0];
         setDisplayName(user.displayName);
+        localStorage.setItem('name' , user.displayName);
         setPhoto(user.photoUrl);
       } catch (err) {
         console.log(err);
@@ -30,6 +31,7 @@ function Header() {
      localStorage.removeItem('token');
      navigate('/login')
   }
+
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
@@ -96,6 +98,7 @@ function Header() {
               </NavLink>
             </li>
           </ul>
+      
           <button onClick={onLogout} className="btn btn-sm mx-3 btn-primary">Logout</button> 
           <div className="text-center mx-3">
               <img src={photo} alt="P" width="50px" className="border rounded-circle d-block" />
