@@ -3,7 +3,7 @@ import { useExpense } from "../../../Context/ExpensesContext";
 import "./Expenses.css";
 
 const Expenses = () => {
-  const { expenses, removeExpense,loadExpenses } = useExpense();
+  const { expenses, removeExpense,loadExpenses,editExpense } = useExpense();
   // console.log("from context" , expenses);
   useEffect(()=>{
   loadExpenses();
@@ -14,7 +14,10 @@ const Expenses = () => {
   const deleteProductHandler = (index) => {
     removeExpense(index);
   };
-  // console.log("ecpeses", expenses);
+  const editProductHandler =(id)=>{
+   editExpense(id);
+  }
+
 
   return (
     <div className="displaybox">
@@ -25,7 +28,7 @@ const Expenses = () => {
               <span>Category : {product.category}</span>
               <span>Description: {product.dsc}</span>
               <span>Money : {product.money}</span>
-
+            <div className="btn-container">
               <button
                 onClick={() => {
                   deleteProductHandler(product.id);
@@ -33,6 +36,14 @@ const Expenses = () => {
               >
                 Remove
               </button>
+              <button
+                onClick={() => {
+                  editProductHandler(product.id);
+                }}
+              >
+                Edit
+              </button>
+              </div>
             </li>
           );
         })}

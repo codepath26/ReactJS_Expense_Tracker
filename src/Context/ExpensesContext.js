@@ -6,12 +6,14 @@ const ProductContext = createContext({
   addExpense : (expense)=>{},
   removeExpense : (id)=>{},
   loadExpenses:(expenses)=>{},
+  editExpense:(id)=>{}
 });
 export const useExpense = ()=>{
   return useContext(ProductContext);
 }
 function ProductsProvider({children}) {
   const [expenses , setExpenses] = useState([]);
+  const [editedExpense , setEditedExpense] = useState({});
   const addExpense = async(expense)=>{
     // console.log("add ex" ,expense)
     try{
@@ -26,7 +28,9 @@ function ProductsProvider({children}) {
     }
   }
   const removeExpense =async (id)=>{
-    // const response =await axios.post(`${process.env.REACT_APP_FIREBASE_URL}expenses.json`);
+    console.log(id);
+    const response =await axios.delete(`${process.env.REACT_APP_FIREBASE_URL}expenses/${id}.json`);
+    console.log(response);
     setExpenses(prevExpense =>{
       let expenses = [...prevExpense];
        return expenses.filter(expense =>expense.id !== id);
@@ -35,18 +39,27 @@ function ProductsProvider({children}) {
   const loadExpenses=async ()=>{
       const response =await axios.get(`${process.env.REACT_APP_FIREBASE_URL}expenses.json`);
       // console.log(response.data);
-      const  expensesObject = response.data;
-      const ids = Object.keys(expensesObject);
-      const values = Object.values(expensesObject);
-      // console.log(ids)
+      if(response.data){
+        const  expensesObject = response.data;
+        const ids = Object.keys(expensesObject);
+        const values = Object.values(expensesObject);
+        // console.log(ids)
         const newExpenses = values.map((obj,index)=>(
           {...obj , id : ids[index]}
-        ));
-       setExpenses(newExpenses);
+          ));
+          setExpenses(newExpenses);
+        }else{
+          setExpenses([]);
+        }
+  }
+  const editExpense = async(id)=>{
+    const expense = expenses.find((expense)=>expense.id === id);
+     await removeExpense(id);
+    setEditedExpense(expense);
   }
 
   return (
-    <ProductContext.Provider value={{expenses , addExpense , removeExpense,loadExpenses }}>
+    <ProductContext.Provider value={{expenses , addExpense , removeExpense,loadExpenses,editExpense , editedExpense }}>
       {
         children
       }

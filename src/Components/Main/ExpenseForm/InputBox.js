@@ -1,12 +1,12 @@
 import { useExpense } from "../../../Context/ExpensesContext";
 import "./InputBox.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const InputBox = () => {
   const [money, setMoney] = useState(0);
   const [dsc, setDsc] = useState("");
   const [category, setCategory] = useState("");
-  const { addExpense } = useExpense();
+  const { addExpense ,editedExpense } = useExpense();
   const formSubmitHandler = (e) => {
     e.preventDefault();
     const obj = {
@@ -19,6 +19,13 @@ const InputBox = () => {
     setDsc('')
     setCategory('')
   };
+  useEffect(()=>{
+    if(Object.keys(editedExpense).length > 0){
+      setCategory(editedExpense.category);
+      setMoney(editedExpense.money);
+      setDsc(editedExpense.dsc);
+    }
+  },[editedExpense]);
   return (
     <div className="d-flex justify-content-center  vh-50">
       <form onSubmit={formSubmitHandler}>
