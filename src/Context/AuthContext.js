@@ -30,10 +30,12 @@ console.log("this",userIsLoggedIn)
     localStorage.setItem('token' , token);
     // adding the timer to expire the token 
 
-    setTimeout(() => {
-      console.log("logout handler is called after the 5 mintes")
-        logoutHandler();
-    }, 5000 * 60);
+
+    // this is for the auto logout after the five minetes
+    // setTimeout(() => {
+    //   console.log("logout handler is called after the 5 mintes")
+    //     logoutHandler();
+    // }, 5000 * 60);
     
   }
   const logoutHandler = ()=>{

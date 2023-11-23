@@ -10,7 +10,6 @@ const InputBox = () => {
   const formSubmitHandler = (e) => {
     e.preventDefault();
     const obj = {
-      id: Date.now(),
       money: money,
       dsc: dsc,
       category: category,
