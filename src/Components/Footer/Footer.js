@@ -17,7 +17,7 @@ import React from 'react'
 
 function Footer() {
   return (
-    <div>
+    <div className='position-fixed bottom-0 bg-dark text-center w-100 text-white'>
       this is footer
     </div>
   )
