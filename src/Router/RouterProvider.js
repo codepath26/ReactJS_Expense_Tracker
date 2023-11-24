@@ -13,9 +13,7 @@ function RouterProvider() {
   // const {userIsLoggedIn}= useAuthContext();
   
   const  userIsLoggedIn = useSelector(state => state.auth.userIsLoggedIn)
-  const state = useSelector(state => state);
-  console.log(state)
-  console.log("RouterProvider is called")
+ console.log("RouterProvider is called")
   console.log(userIsLoggedIn)
 
   return (

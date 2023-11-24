@@ -1,8 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+const localToken = localStorage.getItem('token');
 
 const authInitialState = {
-  token : '',
-  userIsLoggedIn : true,
+  token :localToken ||  '',
+  userIsLoggedIn : !!localToken,
+  displayName : '',
+  emailVerified : false,
+  photoUrl : '',
 }
 const authSlice = createSlice({
   name : "Authenticate",
@@ -22,6 +26,9 @@ const authSlice = createSlice({
       localStorage.removeItem('token');
 
     },
+    updateProfile(state,action){
+      console.log(action.payload);
+    }
   }
 });
 

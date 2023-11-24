@@ -1,9 +1,133 @@
-
+:root {
+  --background-color-light: #fff;
+  --text-color-light: #333;
+  --background-color-dark: #333;
+  --text-color-dark: #fff;
+  --button-color-light: #5910d6;
+  --button-color-dark: #a180e0;
+}
 
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  height: 100%;
+  overflow: hidden;
 }
 
+.button-dark {
+  background-color: rgb(41, 5, 76);
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 7px 15px;
+  margin: 5px 10px;
+}
+
+.button-light {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 7px 15px;
+  margin: 5px 10px;
+}
+
+.navbar-dark {
+  width: 100vw;
+  height: 2.8rem;
+  background-color: rgb(46, 46, 46);
+  color: white;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.navbar-light {
+  width: 100vw;
+  height: 2.8rem;
+  background-color: rgb(165, 165, 165);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.form-dark {
+  width: 40%;
+  margin-top: 10px;
+  min-width: 480px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 1px 1px 20px 1px rgba(67, 67, 67, 0.5);
+  background-color: rgb(255, 255, 255);
+}
+.form-light {
+  width: 40%;
+  margin-top: 10px;
+  min-width: 480px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 1px 1px 20px 1px rgba(67, 67, 67, 0.5);
+  background-color: #333333;
+  color: white;
+}
+.form-btn-light {
+  padding: 5px 10px;
+  background-color: rgb(41, 5, 76);
+  color: white;
+  border: none;
+  border-radius: 3px;
+  display: block;
+  margin: 10px auto;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+.form-btn-dark {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 7px 15px;
+  display: block;
+  margin: 10px auto;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+.light {
+  background-color: rgb(41, 5, 76);
+}
+.dark {
+  background-color: #007bff;
+}
+.input-light {
+  border: 1.5px solid #ffffff;
+}
+.lable-light {
+  color: white;
+}
+.lable-dark {
+  color: black;
+}
+.input-dark {
+  color: black !important;
+}
+.lightTheme {
+  color: black;
+  border: 1px solid black;
+  border-radius: 50%;
+  padding: 2px 5px;
+  cursor: pointer;
+}
+.darkTheme {
+  color: yellow;
+  border: 1px solid yellow;
+  border-radius: 50%;
+  padding: 2px 5px;
+  cursor: pointer;
+}
+.li-dark{
+  background-color:  rgb(46, 46, 46) !important;
+}
+
+
+/* --primary-light-bg: #007bff; 
+  --primary-light-text: #ffffff; 
+  --primary-dark-bg: #6f42c1; */
+/* --primary-dark-text:   #8a2be2; */

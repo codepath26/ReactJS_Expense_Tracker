@@ -22,7 +22,7 @@ function CompleteProfile() {
           const response =await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:update?key=${process.env.REACT_APP_FIREBASE_API_KEY}`,
           data
           );
-          console.log(response);
+          console.log("profile response" ,response);
           navigate('/main');
         }
       }catch(err){

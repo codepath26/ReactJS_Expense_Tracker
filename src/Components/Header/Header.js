@@ -1,11 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { authAction } from "../../Store/Auth";
-
+import { expenseAction } from "../../Store/Expenses";
 function Header() {
   const dispatch = useDispatch();
+  const expenses = useSelector((state) => state.Expenses);
   const [photo, setPhoto] = useState("");
   const [displayName, setDisplayName] = useState("");
   const navigate = useNavigate();
@@ -22,7 +23,8 @@ function Header() {
         );
         const user = response.data.users[0];
         setDisplayName(user.displayName);
-        localStorage.setItem('name' , user.displayName);
+        localStorage.setItem("name", user.displayName);
+        localStorage.setItem("photo", user.photoUrl);
         setPhoto(user.photoUrl);
       } catch (err) {
         console.log(err);
@@ -30,86 +32,35 @@ function Header() {
     };
     getdata();
   });
-  const onLogout = ()=>{
+  const onLogout = () => {
     dispatch(authAction.logout());
     //  localStorage.removeItem('token');
-     navigate('/login')
-  }
+    navigate("/login");
+  };
+  const toggle = () => {
+    console.log("at here toggle")
+    dispatch(expenseAction.toggleTheme());
+  };
 
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary position-relative">
-      <div className="container-fluid">
-        <NavLink className="navbar-brand" href="#">
-          Navbar
-        </NavLink>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <NavLink className="nav-link active" aria-current="page" href="#">
-                Home
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" href="#">
-                Link
-              </NavLink>
-            </li>
-            <li className="nav-item dropdown">
-              <NavLink
-                className="nav-link dropdown-toggle"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Dropdown
-              </NavLink>
-              <ul className="dropdown-menu">
-                <li>
-                  <NavLink className="dropdown-item" href="#">
-                    Action
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink className="dropdown-item" href="#">
-                    Another action
-                  </NavLink>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li>
-                  <NavLink className="dropdown-item" href="#">
-                    Something else here
-                  </NavLink>
-                </li>
-              </ul>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link disabled" aria-disabled="true">
-                Disabled
-              </NavLink>
-            </li>
-          </ul>
-      
-          <button onClick={onLogout} className="btn btn-sm mx-3 btn-primary">Logout</button> 
-          <div className="text-center mx-3">
-              <img src={photo} alt="P" width="50px" className="border rounded-circle d-block" />
-              <span>{displayName}</span>
-            </div>
-        </div>
-      </div>
+    <nav className={`${expenses.isLight ? "navbar-light" : "navbar-dark"}`}>
+      {expenses.totalExpenses > 100000 && <span
+        onClick={toggle}
+        className={`${expenses.isLight ? "lightTheme" : "darkTheme"}`}
+      >
+        <i class="fa-solid fa-lightbulb"></i>
+      </span>}
+
+        <img
+          src={`${photo}`}
+          alt="P"
+          width="30px"
+          className="border rounded-circle d-block me-2"
+        />
+        <span className="text-center me-4 text-primary-emphasis fw-bold">{displayName}</span>
+      <button onClick={onLogout} className={`${expenses.isLight ? "button-dark" : "button-light"}`}>
+        Logout
+      </button>
     </nav>
   );
 }

@@ -3,12 +3,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Alert({onCompleteProfile}) {
-  const [visibleProfile, setVisibleProfilel] = useState(false);
-  const [visibleEmail, setVisibleEmail] = useState(false);
+  const [visibleProfile, setVisibleProfilel] = useState(true);
+  const [visibleEmail, setVisibleEmail] = useState(true);
   const navigate = useNavigate();
   useEffect(() => {
     const name = localStorage.getItem("name");
-    console.log("this", name === "undefined");
+    // console.log("this", name === "undefined");
     if (name !== "" && name !== "undefined") {
       setVisibleProfilel(false);
     }
@@ -24,6 +24,7 @@ function Alert({onCompleteProfile}) {
   async function verifyEmail() {
     try {
       const token = localStorage.getItem("token");
+     console.log(token ,"veryfi the email")
       if (token) {
         const response = await axios.post(
           `https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${process.env.REACT_APP_FIREBASE_API_KEY}`,
@@ -32,13 +33,15 @@ function Alert({onCompleteProfile}) {
             requestType: "VERIFY_EMAIL",
           }
         );
-        console.log(response.data.status);
+        console.log(response.data);
+        setVisibleEmail(false);
         if (response.data.status === "200") {
           setVisibleEmail(false);
         }
       }
     } catch (err) {
       console.log(err);
+      setVisibleEmail(false);
     }
   }
   return (
