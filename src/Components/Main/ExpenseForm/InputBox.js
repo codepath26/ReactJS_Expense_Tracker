@@ -1,20 +1,27 @@
-import { useExpense } from "../../../Context/ExpensesContext";
+// import { useExpense } from "../../../Context/ExpensesContext";
+import { useDispatch, useSelector } from "react-redux";
 import "./InputBox.css";
 import { useEffect, useState } from "react";
+import { addData, expenseAction } from "../../../Store/Expenses";
 
 const InputBox = () => {
+  const dispatch = useDispatch();
+  const editedExpense = useSelector(state =>state.Expenses.editedExpense);
+  console.log("inputbox" ,editedExpense)
   const [money, setMoney] = useState(0);
   const [dsc, setDsc] = useState("");
   const [category, setCategory] = useState("");
-  const { addExpense ,editedExpense } = useExpense();
-  const formSubmitHandler = (e) => {
+  // const { addExpense ,editedExpense } = useExpense();
+  const formSubmitHandler = async(e) => {
     e.preventDefault();
     const obj = {
       money: money,
       dsc: dsc,
       category: category,
     };
-    addExpense(obj);
+    // addExpense(obj);
+    // dispatch(expenseAction.addExpense({expense : obj}));
+    dispatch(addData(obj));
     setMoney(0);
     setDsc('')
     setCategory('')

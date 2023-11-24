@@ -3,18 +3,20 @@ import { useEffect, useState } from "react";
 import './LoginRight.css';
 import sendRequest from "./LoginHandler";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuthContext } from "../../../Context/AuthContext";
+import { useDispatch } from "react-redux";
+import { authAction } from "../../../Store/Auth";
+// import { useAuthContext } from "../../../Context/AuthContext";
 
 
 
 function LoginRight() {
 
-
+const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [msg , setMsg] = useState('');
   const navigate = useNavigate();
-  const {  logginHandler  , onUserLogin} = useAuthContext();
+  // const {  logginHandler  , onUserLogin} = useAuthContext();
 
  const customStyle = {
   '--bs-link-hover-color-rgb':'25, 135, 84',
@@ -30,7 +32,7 @@ function LoginRight() {
       }
     };
     animation();
-  });
+  },[]);
   const onSubmitHandler = async(e) => {
     e.preventDefault();
     // console.log('submit handler is called')
@@ -41,8 +43,9 @@ function LoginRight() {
       try{
         console.log("loging handler")
         const data = await sendRequest(user);
-         logginHandler(data.idToken)
-         onUserLogin();
+        //  logginHandler(data.idToken)
+        console.log(data);
+         dispatch(authAction.login({token : data.idToken}));
         setMsg("Login...");
         setEmail('');
         setPassword('');

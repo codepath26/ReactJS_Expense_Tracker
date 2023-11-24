@@ -101,8 +101,8 @@ const CartProvider = ({ children }) => {
   );
 };
 
-export default CartProvider;
+// export default CartProvider;
 
-export function useProduct() {
-  return useContext(CartContext);
-}
+// export function useProduct() {
+  // return useContext(CartContext);
+// }

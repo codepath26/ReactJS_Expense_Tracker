@@ -7,8 +7,8 @@ async function sendRequest(user) {
       `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_FIREBASE_API_KEY}`,
       user
     );
-    console.log("this is the data",response.data);
-    localStorage.setItem('token' , response.data.idToken);
+    // console.log("this is the data",response.data);
+    // localStorage.setItem('token' , response.data.idToken);
     return response.data;
   } catch (err) {
     throw new Error(err.response.data.error.message);

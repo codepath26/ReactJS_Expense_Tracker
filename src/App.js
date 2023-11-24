@@ -1,16 +1,16 @@
 import React from "react";
 
-import AuthContextProvider from "./Context/AuthContext";
+// import AuthContextProvider from "./Context/AuthContext";
 import RouterProvider from "./Router/RouterProvider";
-import ProductsProvider from "./Context/ExpensesContext";
+// import ProductsProvider from "./Context/ExpensesContext";
 
 function App() {
   return (
-    <AuthContextProvider>
-      <ProductsProvider>
-        <RouterProvider />
-      </ProductsProvider>
-    </AuthContextProvider>
+    // <AuthContextProvider>
+    //   <ProductsProvider>
+           <RouterProvider />
+    //  </ProductsProvider>
+    // </AuthContextProvider>
   );
 }
 
