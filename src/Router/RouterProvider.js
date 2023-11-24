@@ -5,11 +5,19 @@ import Login from '../Components/User_Credentials/Login/Login';
 import Layout from '../Components/Layout/Layout';
 import MainPage from '../Components/Main/MainPage';
 import CompleteProfile from '../Components/Profile/CompleteProfile';
-import { useAuthContext } from '../Context/AuthContext';
+// import { useAuthContext } from '../Context/AuthContext';
 import Forgotpass from '../Components/User_Credentials/ForgotPass/Forgotpass';
+import { useSelector } from 'react-redux';
 
 function RouterProvider() {
-  const {userIsLoggedIn}= useAuthContext();
+  // const {userIsLoggedIn}= useAuthContext();
+  
+  const  userIsLoggedIn = useSelector(state => state.auth.userIsLoggedIn)
+  const state = useSelector(state => state);
+  console.log(state)
+  console.log("RouterProvider is called")
+  console.log(userIsLoggedIn)
+
   return (
     <Router>
        

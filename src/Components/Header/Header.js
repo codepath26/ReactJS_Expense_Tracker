@@ -1,8 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
+import { authAction } from "../../Store/Auth";
 
 function Header() {
+  const dispatch = useDispatch();
   const [photo, setPhoto] = useState("");
   const [displayName, setDisplayName] = useState("");
   const navigate = useNavigate();
@@ -28,7 +31,8 @@ function Header() {
     getdata();
   });
   const onLogout = ()=>{
-     localStorage.removeItem('token');
+    dispatch(authAction.logout());
+    //  localStorage.removeItem('token');
      navigate('/login')
   }
 

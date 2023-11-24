@@ -3,6 +3,7 @@ import axios from 'axios';
 import React, { createContext, useContext, useState } from 'react'
 const ProductContext = createContext({
   expenses : [],
+  editedExpense : {},
   addExpense : (expense)=>{},
   removeExpense : (id)=>{},
   loadExpenses:(expenses)=>{},
@@ -67,4 +68,4 @@ function ProductsProvider({children}) {
   )
 }
 
-export default ProductsProvider;
+// export default ProductsProvider;

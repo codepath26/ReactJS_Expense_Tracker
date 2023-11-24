@@ -1,21 +1,33 @@
 import { useEffect } from "react";
-import { useExpense } from "../../../Context/ExpensesContext";
+// import { useExpense } from "../../../Context/ExpensesContext";
 import "./Expenses.css";
+import { useDispatch, useSelector } from "react-redux";
+import { editData, expenseAction, getData, removeData } from "../../../Store/Expenses";
 
 const Expenses = () => {
-  const { expenses, removeExpense,loadExpenses,editExpense } = useExpense();
-  // console.log("from context" , expenses);
+  // const { expenses, removeExpense,loadExpenses,editExpense } = useExpense();
+
+  const dispatch = useDispatch();
+  const expenses = useSelector(state=>state.Expenses.expenses);
+  
+  console.log("from context" , expenses);
   useEffect(()=>{
-  loadExpenses();
- },[loadExpenses]);
+  // loadExpenses();
+  dispatch(getData());
+  // dispatch(expenseAction.loadExpenses());
+ },[dispatch]);
 
 
 
-  const deleteProductHandler = (index) => {
-    removeExpense(index);
+  const deleteProductHandler = (id) => {
+    // removeExpense(index);
+    // dispatch(expenseAction.removeExpense({id : index}));
+    dispatch(removeData(id));
   };
   const editProductHandler =(id)=>{
-   editExpense(id);
+  //  editExpense(id);
+  // dispatch(expenseAction.editExpense({id : id}));
+  dispatch(editData(id));
   }
 
 
