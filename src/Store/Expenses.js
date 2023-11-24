@@ -48,14 +48,16 @@ const expensesInitialState = {
   editedExpense: {},
   isLoading : false,
   isError : false,
+  isLight : true,
+
+  totalExpenses : 0
 };
 const ExpenseSlice = createSlice({
   name: "expensesList",
   initialState: expensesInitialState,
   reducers: {
-      editExpense: async (state, action) => {
-      const id = action.payload.id;
-      
+    toggleTheme (state , action){
+      state.isLight = !state.isLight;
     },
   },
   extraReducers : (builder)=>{
@@ -64,17 +66,19 @@ const ExpenseSlice = createSlice({
     })
     builder.addCase(getData.fulfilled , (state , action)=>{
       if(action.payload){
-
         state.isLoading = false;
         const expensesObject = action.payload;
         const ids =   Object.keys(expensesObject);
         const values =  Object.values(expensesObject);
-      console.log(ids)
-      console.log(values)
+      // console.log(ids)
+      // console.log(values)
       state.expenses = values.map((obj, index) => ({
         ...obj,
         id: ids[index],
       }));
+      // console.log(state.expenses)
+      const totalPrice = state.expenses.reduce((acc , total)=>acc + Number(total.money),0);
+      state.totalExpenses = totalPrice ;
     }else{
       state.expenses = [];
     }
@@ -84,7 +88,8 @@ const ExpenseSlice = createSlice({
       state.isError = true;
     });
     builder.addCase(addData.fulfilled,(state,action)=>{
-      console.log(action.payload)
+      // console.log(action.payload.money)
+      state.totalExpenses = state.totalExpenses + Number(action.payload.money)
       state.expenses = state.expenses.concat(action.payload);
     })
     builder.addCase(addData.rejected ,(action)=>{
@@ -92,6 +97,9 @@ const ExpenseSlice = createSlice({
     });
     builder.addCase(removeData.fulfilled , (state , action)=>{
       const id = action.payload;
+    const expense = state.expenses.find((expense) => expense.id !== id);
+    console.log(expense.money);
+    state.totalExpenses -= expense.money;
     state.expenses = state.expenses.filter((expense) => expense.id !== id);
     });
     builder.addCase(removeData.rejected , (action)=>{
@@ -99,7 +107,10 @@ const ExpenseSlice = createSlice({
     });
     builder.addCase(editData.fulfilled , (state ,action)=>{
       const id = action.payload;
+      console.log(id)
       state.editedExpense = state.expenses.find((expense) => expense.id === id);
+      state.totalExpenses -= Number(state.editedExpense.money)
+      state.expenses = state.expenses.filter((expense) => expense.id !== id);
     });
     builder.addCase(editData.rejected , (action)=>{
        console.log(action.payload , "editData");

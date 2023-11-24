@@ -6,7 +6,9 @@ import { addData, expenseAction } from "../../../Store/Expenses";
 
 const InputBox = () => {
   const dispatch = useDispatch();
-  const editedExpense = useSelector(state =>state.Expenses.editedExpense);
+  const expenses = useSelector((state) => state.Expenses);
+  const editedExpense = expenses.editedExpense;
+
   console.log("inputbox" ,editedExpense)
   const [money, setMoney] = useState(0);
   const [dsc, setDsc] = useState("");
@@ -34,11 +36,12 @@ const InputBox = () => {
     }
   },[editedExpense]);
   return (
-    <div className="d-flex justify-content-center  vh-50">
-      <form onSubmit={formSubmitHandler}>
+    <div className={`d-flex justify-content-center  vh-50  ${expenses.isLight ? "bg-light" : "bg-dark"}`}>
+      <form className={`${expenses.isLight ? "form-light" : "form-dark"}`}  onSubmit={formSubmitHandler}>
         <div className="input_container">
-          <label htmlFor="money">Money</label>
+          <label  className={`${expenses.isLight ? "lable-light" : "lable-dark"}`}  htmlFor="money">Money</label>
           <input
+           className={`${expenses.isLight ? "input-light" : "input-dark"}`}
             type="number"
             id="money"
             value={money}
@@ -47,8 +50,9 @@ const InputBox = () => {
           />
         </div>
         <div className="input_container">
-          <label htmlFor="dsc">Description</label>
+          <label className={`${expenses.isLight ? "lable-light" : "lable-dark"}`} htmlFor="dsc">Description</label>
           <input
+             className={`${expenses.isLight ? "input-light" : "input-dark"}`}
             type="text"
             id="dsc"
             value={dsc}
@@ -57,8 +61,9 @@ const InputBox = () => {
           />
         </div>
         <div className="input_container">
-          <label htmlFor="category">Category</label>
+          <label   className={`${expenses.isLight ? "lable-light" : "lable-dark"}`} htmlFor="category">Category</label>
           <input
+             className={`${expenses.isLight ? "input-light" : "input-dark"}`}
             type="text"
             id="category"
             value={category}
@@ -66,7 +71,7 @@ const InputBox = () => {
             required
           />
         </div>
-        <button type="submit">Add Data</button>
+        <button  className={`${expenses.isLight ? "form-btn-light" : "form-btn-dark"}`} type="submit">Add Data</button>
       </form>
     </div>
   );
